@@ -1,0 +1,15 @@
+assemble:
+    -   fromTask: bootJar
+mw-object-action:
+    name: MW Object Action
+    oAuth2ApplicationExternalReferenceCode: mw-spring-boot-oauth-app-user-agent
+    resourcePath: /object/action/mw
+    type: objectAction
+mw-spring-boot-oauth-app-user-agent:
+    .serviceAddress: mw.com:58081
+    .serviceScheme: http
+    name: MW Spring Boot OAuth App User Agent
+    scopes:
+        -   Liferay.Headless.Admin.User.everything
+        -   Liferay.Headless.Admin.Workflow.everything
+    type: oAuthApplicationUserAgent    
