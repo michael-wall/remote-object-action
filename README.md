@@ -11,6 +11,7 @@
     - **com.liferay.lxc.dxp.domains=localhost:8080** is the Liferay environment hostname and port.
     - **com.liferay.lxc.dxp.mainDomain=localhost:8080** is the Liferay environment hostname and port.
     - **com.liferay.lxc.dxp.server.protocol=http** is the Liferay environment protocol.
+        - The com.liferay.lxc.dxp. properties are required even if running everything outside of Liferay PaaS or Liferay SaaS.
 - Build the Client Extension with a regular gradle build command.
 - CX LUFFA ZIP (mw-object-action.zip): Copy the CX LUFFA ZIP from remote-object-action\client-extensions\mw-object-action\dist to the local Liferay DXP osgi/extensions folder of the running Liferay
 - This should generate logging like this:
