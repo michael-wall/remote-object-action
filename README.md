@@ -26,27 +26,36 @@
   - object-action-executor[function#mw-object-action]
 - Create an Object Record and check the logs of the Spring Boot application, you should see a blob of JSON as well as the JWT Claims, JWT ID and JWT Subject in the Spring Boot App log output.
 
-
 ## Liferay PaaS Setup Steps ##
-- For each Liferay PaaS environment, generate the environment specific LUFFA file and copy to liferay\configs\[ENV]\osgi\client-extensions folder.
-- Deploy the resulting Liferay PaaS build to an environment.
-- Provision / start the Spring Boot App for the environment, running outside of Liferay PaaS and confirm it starts as expected.
+- For each Liferay PaaS environment, generate the environment specific LUFFA file based on the environment specific client-extenstion.yaml and application.properties details from above and copy the resulting LUFFA to the appropriate liferay\configs\[ENV]\osgi\client-extensions folder.
+- Deploy the resulting Liferay PaaS build to a non prod environment.
+- Provision / start the Spring Boot App for the environment. It should be running outside of Liferay PaaS. Confirm it starts as expected.
 - Verify connectivity to the public /ready GET endpoint from the Liferay server e.g. using curl from the Liferay service shell.
 - Add an 'On After Add' Object Action to An Object and select the following from the Action > Then dropdown and Save the Object Action:
   - object-action-executor[function#mw-object-action]
 - Create an Object Record and check the logs of the Spring Boot application, you should see a blob of JSON as well as the JWT Claims, JWT ID and JWT Subject in the Spring Boot App log output.
 
-
 ## Setup Notes ##
 - The Dockerfile is mandatory for the build to compile but the included file is empty.
 - The LCP.json is mandatory for the build to compile but the included file contains only {}.
-- The ReadyRestController.java class is not needed if not running as a Liferay PaaS Custom Service, but I left it there to test as it is a public GET available at /ready
+- The ReadyRestController.java class is not needed if not running as a Liferay PaaS Custom Service, but I left it there for testing connectivity, as it is a public GET available at /ready
 - If the OAuth CX name (i.e. mw-spring-boot-oauth-app-user-agent) is changed after for CX LUFFA zip has been deployed then you will need to also change the Object Action CX name (i.e. mw-object-action) and do build and deployment of the CX LUFFA and restart the new Spring Boot App.
    - This is required because the mapping to the old OAuth CX name doesn't change even if you delete the Object Action and recreate it.
-- The Spring Boot App has some Liferay dependencies e.g. BaseRestController.java from com.liferay.client.extension.util.spring.boot3 for the method signature of the POST method:
+- The Spring Boot App has some Liferay dependencies in particular BaseRestController.java from com.liferay.client.extension.util.spring.boot3. See the specific method signature of the POST method:
 ```
 public ResponseEntity<String> post(@AuthenticationPrincipal Jwt jwt, @RequestBody String json)
-``` 
+```
+
+## OAuth2 Administration > MW Spring Boot OAuth App User Agent ##
+- The **.serviceAddress: mw.com:58081** and **.serviceScheme: http** values can be manually updated through the Liferay GUI > Control Panel > OAuth2 Administration > MW Spring Boot OAuth App User Agent.
+- The values are concatenated into the Website URL field.
+
+## client-extension.yaml ##
+- The Client Extension project (and as a result the Spring Boot App) can contain multiple Mircoservice Client Extensions of different types.
+- These Client Extensions can all share the same OAuth Client Extension but ideally you should consider having one per Client Extension with the specific scopes limited only to what is needed by that Client Extension.
+- Additional Object Action client-extension.yaml properties:
+ - Use allowedObjectDefinitionNames to restrict the Object Action Client Extensions to be visible on one or more specific Objects rather than all Objects. If the Client Extension has business logic tied to a specific Object then it can be restricted to be available for that Object only. See the Liferay Learn article below for sample usage.
+- Use dxp.lxc.liferay.com.virtualInstanceId to restrict the Object Action Client Extension to a specific Virtual Instance. See the Liferay Learn article below for sample usage.
 
 ## Object Action Code ##
 - The JWT available in the Object Action can be used to make requests to the the Liferay headless REST APIs (subject to the assigned scope).
@@ -62,3 +71,6 @@ public ResponseEntity<String> post(@AuthenticationPrincipal Jwt jwt, @RequestBod
 
 ## Notes ##
 - This is a ‘proof of concept’ that is being provided ‘as is’ without any support coverage or warranty.
+
+## Reference ##
+- https://learn.liferay.com/w/dxp/liferay-development/integrating-microservices/object-action-yaml-configuration-reference
