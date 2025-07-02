@@ -1,7 +1,8 @@
 ## Introduction ##
 - A simple Object Action Client Extension with OAuth running in Spring Boot, outside of Liferay PaaS or Docker.
+- For test purposes the setup assumes a local Liferay and local Spring Boot App, but the Spring Boot App can be remote as long as the hostnames are resolvable in both directions etc.
 
-## Setup to run locally ##
+## Setup steps ##
 - Update the following configuration:
   - client-extension.yaml:
     - **.serviceAddress: mw.com:58081** and **.serviceScheme: http** are are the hostname, port and protocol of the Spring Boot App.
@@ -25,7 +26,7 @@
 - The /ReadyRestController.java class is not needed if not running as a Liferay PaaS Custom Service, but I left it there to test. The endpoint is /ready
 - If the OAuth CX name (i.e. mw-spring-boot-oauth-app-user-agent) is changed after for CX LUFFA zip has been deployed then you will need to also change the Object Action CX name (i.e. mw-object-action).
    - This is required because the mapping to the old OAuth CX name doesn't change even if you delete the Object Action and recreate it.
-
+- The Spring Boot App has some Liferay dependencies e.g. BaseRestController.java from com.liferay.client.extension.util.spring.boot3.
 
 ## Environment ##
 - The module was built and tested with 2025.Q1.0 (Liferay Workspace gradle.properties > liferay.workspace.product = dxp-2025.q1.0-lts)
