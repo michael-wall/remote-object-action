@@ -29,6 +29,12 @@
 - If the OAuth CX name (i.e. mw-spring-boot-oauth-app-user-agent) is changed after for CX LUFFA zip has been deployed then you will need to also change the Object Action CX name (i.e. mw-object-action) and do build and deployment of the CX LUFFA and restart the new Spring Boot App.
    - This is required because the mapping to the old OAuth CX name doesn't change even if you delete the Object Action and recreate it.
 - The Spring Boot App has some Liferay dependencies e.g. BaseRestController.java from com.liferay.client.extension.util.spring.boot3.
+- Environment specific application.properties files can be used e.g. application-dev.properties for example to to manage the environment specific com.liferay.lxc.dxp. properties, with the following syntax:
+  - java -jar build\libs\mw-object-action.jar --spring.config.name=application-dev
+
+## Object Action Code ##
+- The JWT available in the Object Action can be used to make requests to the the Liferay headless REST APIs.
+- The response should be a HttpStatus.OK on success etc.
 
 ## Environment ##
 - The module was built and tested with 2025.Q1.0 (Liferay Workspace gradle.properties > liferay.workspace.product = dxp-2025.q1.0-lts)
