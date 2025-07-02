@@ -26,7 +26,7 @@
 - The Dockerfile is mandatory for the build to compile but the included file is empty.
 - The LCP.json is mandatory for the build to compile but the included file contains only {}.
 - The /ReadyRestController.java class is not needed if not running as a Liferay PaaS Custom Service, but I left it there to test. The endpoint is /ready
-- If the OAuth CX name (i.e. mw-spring-boot-oauth-app-user-agent) is changed after for CX LUFFA zip has been deployed then you will need to also change the Object Action CX name (i.e. mw-object-action).
+- If the OAuth CX name (i.e. mw-spring-boot-oauth-app-user-agent) is changed after for CX LUFFA zip has been deployed then you will need to also change the Object Action CX name (i.e. mw-object-action) and do build and deployment of the CX LUFFA and restart the new Spring Boot App.
    - This is required because the mapping to the old OAuth CX name doesn't change even if you delete the Object Action and recreate it.
 - The Spring Boot App has some Liferay dependencies e.g. BaseRestController.java from com.liferay.client.extension.util.spring.boot3.
 
