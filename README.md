@@ -28,12 +28,19 @@
 - The /ReadyRestController.java class is not needed if not running as a Liferay PaaS Custom Service, but I left it there to test. The endpoint is /ready
 - If the OAuth CX name (i.e. mw-spring-boot-oauth-app-user-agent) is changed after for CX LUFFA zip has been deployed then you will need to also change the Object Action CX name (i.e. mw-object-action) and do build and deployment of the CX LUFFA and restart the new Spring Boot App.
    - This is required because the mapping to the old OAuth CX name doesn't change even if you delete the Object Action and recreate it.
-- The Spring Boot App has some Liferay dependencies e.g. BaseRestController.java from com.liferay.client.extension.util.spring.boot3.
+- The Spring Boot App has some Liferay dependencies e.g. BaseRestController.java from com.liferay.client.extension.util.spring.boot3 for the method signature of the POST method:
+```
+public ResponseEntity<String> post(@AuthenticationPrincipal Jwt jwt, @RequestBody String json)
+``` 
 - Environment specific application.properties files can be used e.g. application-dev.properties for example to to manage the environment specific com.liferay.lxc.dxp. properties, with the following syntax:
   - java -jar build\libs\mw-object-action.jar --spring.config.name=application-dev
 
 ## Object Action Code ##
-- The JWT available in the Object Action can be used to make requests to the the Liferay headless REST APIs.
+- The JWT available in the Object Action can be used to make requests to the the Liferay headless REST APIs (subject to the assigned scope).
+- The Object Action should be a POST with the following method signature:
+```
+public ResponseEntity<String> post(@AuthenticationPrincipal Jwt jwt, @RequestBody String json)
+```
 - The response should be a HttpStatus.OK on success etc.
 
 ## Environment ##
