@@ -18,7 +18,8 @@
   - OAuth 2 application with external reference code mw-spring-boot-oauth-app-user-agent and company ID 40473633903803 has client ID ..............................
 - Spring Boot Jar (mw-object-action.jar): Copy the Spring Boot Jar from remote-object-action\client-extensions\mw-object-action\build\libs out of the workspace
 - Run java -jar mw-object-action.jar to Start the Spring Boot application
-- Add an 'On After Add' Object Action to An Object and select the following from the Action > Then dropdown: object-action-executor[function#mw-object-action] and Save the Object Action.
+- Add an 'On After Add' Object Action to An Object and select the following from the Action > Then dropdown and Save the Object Action:
+  - object-action-executor[function#mw-object-action]
 - Create an Object Record and check the logs of the Spring Boot application, you should see a blob of JSON as well as the JWT Claims, JWT ID and JWT Subject.
 
 ## Setup Notes ##
