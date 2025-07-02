@@ -7,7 +7,7 @@
   - client-extension.yaml:
     - **.serviceAddress: mw.com:58081** and **.serviceScheme: http** are are the hostname, port and protocol of the Spring Boot App.
   - application-default.properties:
-    - **server.port=58081** is the Spring Boot App port, must match **.serviceScheme: http** from above.
+    - **server.port=58081** is the Spring Boot App port, must match the port from **.serviceAddress: mw.com:58081** above.
     - **com.liferay.lxc.dxp.domains=localhost:8080** is the Liferay environment hostname and port.
     - **com.liferay.lxc.dxp.mainDomain=localhost:8080** is the Liferay environment hostname and port.
     - **com.liferay.lxc.dxp.server.protocol=http** is the Liferay environment protocol.
