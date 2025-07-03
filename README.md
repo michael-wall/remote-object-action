@@ -5,7 +5,7 @@
     - The Spring Boot App is in a separate Liferay Workspace repository: https://github.com/michael-wall/remote-object-action-new-app
 - The expectation is that the Spring Boot App is deployed outside of Liferay PaaS and Docker.
 - For test purposes the setup assumes a local Liferay and local Spring Boot App, but the Spring Boot App can be remote as long as the hostnames are resolvable in both directions etc.
-- Customer is responsible for provisioning the Spring Boot App since it won't be managed in Liferay PaaS.
+- Customer is responsible for provisioning the Spring Boot App e.g. with a custom CI/CD pipeline and managing availability and scale etc.
 
 ## Self Hosted / Local Setup Steps ##
 - Update the following configuration:
@@ -73,8 +73,17 @@ public ResponseEntity<String> post(@AuthenticationPrincipal Jwt jwt, @RequestBod
 - The module was built and tested with 2025.Q1.0 (Liferay Workspace gradle.properties > liferay.workspace.product = dxp-2025.q1.0-lts)
 - JDK 21 is expected for compile time and runtime.
 
+## Sample Object Action that uses the Liferay headless REST APIs ##
+- Get the latest Client Extensions sample Workspace here:
+```
+curl -o com.liferay.sample.workspace-latest.zip https://repository.liferay.com/nexus/service/local/artifact/maven/content\?r\=liferay-public-releases\&g\=com.liferay.workspace\&a\=com.liferay.sample.workspace\&\v\=LATEST\&p\=zip
+```
+- See the examples here: client-extensions\liferay-sample-etc-spring-boot\src\main\java\com\liferay\sample
+    - ObjectAction2RestController.java
+
 ## Notes ##
 - This is a ‘proof of concept’ that is being provided ‘as is’ without any support coverage or warranty.
 
 ## Reference ##
+- https://learn.liferay.com/w/dxp/liferay-development/integrating-microservices
 - https://learn.liferay.com/w/dxp/liferay-development/integrating-microservices/object-action-yaml-configuration-reference
