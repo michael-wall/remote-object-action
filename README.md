@@ -25,7 +25,7 @@
 -Build the Spring Boot App Jar with a regular gradle build command.
 - Spring Boot Jar (com.mw.object.action-1.0.0.jar): Copy the Spring Boot Jar from remote-object-action-new-app\remote-object-action-new-app\modules\mw-object-action\build\libs out of the workspace
 - Run java -jar com.mw.object.action-1.0.0.jar to Start the Spring Boot App and confirm it starts as expected.
-- Pre-existing environment specific application.properties files can be injected in at runtime e.g. application-dev.properties for example to to manage the environment specific com.liferay.lxc.dxp. properties, with the following syntax:
+    - Pre-existing environment specific application.properties files from the Spring Boot App artifact can be injected in at runtime e.g. application-dev.properties for example to to manage the environment specific com.liferay.lxc.dxp. properties, with the following syntax:
   - java -jar build\libs\mw-object-action.jar --spring.config.name=application-dev
 - Verify connectivity to the public /ready GET endpoint from the Liferay server e.g. using curl.
 - Add an 'On After Add' Object Action to An Object and select the following from the Action > Then dropdown and Save the Object Action:
