@@ -5,18 +5,19 @@
     - The Spring Boot App is in a separate Liferay Workspace repository: https://github.com/michael-wall/remote-object-action-new-app
 - The expectation is that the Spring Boot App is deployed outside of Liferay PaaS and Docker.
 - For test purposes the setup assumes a local Liferay and local Spring Boot App, but the Spring Boot App can be remote as long as the hostnames are resolvable in both directions etc.
-- Customer is responsible for provisioning the Spring Boot App e.g. with a custom CI/CD pipeline and managing availability and scale etc.
+- **Customer is responsible for provisioning the Spring Boot App e.g. with a custom CI/CD pipeline and managing availability and scale etc.**
+- **Customer can update the code within the Object Action class without needing to do a Liferay PaaS build.**
 
 ## Self Hosted / Local Setup Steps ##
-- Update the following configuration:
-  - mw-object-action CX module: client-extension.yaml:
-    - **.serviceAddress: mw.com:58081** and **.serviceScheme: http** are are the hostname, port and protocol of the Spring Boot App.
-  - mw-object-action Spring Boot App module: application-default.properties:
+- Update the following configuration (as needed) for the target environment:
+  - mw-object-action CX client-extension.yaml:
+    - **.serviceAddress: mw.com:58081** and **.serviceScheme: http** are the hostname, port and protocol of the Spring Boot App. Liferay users these to connect to the Object Action endpoint.
+  - mw-object-action Spring Boot App module application-default.properties:
     - **server.port=58081** is the Spring Boot App port and it MUST match the port from **.serviceAddress: mw.com:58081** above.
     - **com.liferay.lxc.dxp.domains=localhost:8080** is the Liferay environment hostname and port.
     - **com.liferay.lxc.dxp.mainDomain=localhost:8080** is the Liferay environment hostname and port.
     - **com.liferay.lxc.dxp.server.protocol=http** is the Liferay environment protocol.
-        - The com.liferay.lxc.dxp. properties are required even if running everything outside of Liferay PaaS or Liferay SaaS.
+        - These com.liferay.lxc.dxp... properties are required even if running everything outside of Liferay PaaS or Liferay SaaS.
 - Build the Client Extension with a regular gradle build command.
 - CX LUFFA ZIP (mw-object-action.zip): Copy the CX LUFFA ZIP from remote-object-action\client-extensions\mw-object-action\dist to the local Liferay DXP osgi/extensions folder of the running Liferay
 - This should generate logging like this:
@@ -24,8 +25,8 @@
 -Build the Spring Boot App Jar with a regular gradle build command.
 - Spring Boot Jar (com.mw.object.action-1.0.0.jar): Copy the Spring Boot Jar from remote-object-action-new-app\remote-object-action-new-app\modules\mw-object-action\build\libs out of the workspace
 - Run java -jar com.mw.object.action-1.0.0.jar to Start the Spring Boot App and confirm it starts as expected.
-- Pre-existing environment specific application.properties files can be injected in at runtime e.g. application-dev.properties for example to to manage the environment specific com.liferay.lxc.dxp. properties, with the following syntax:
   - java -jar build\libs\mw-object-action.jar --spring.config.name=application-dev
+  - Pre-existing environment specific application.properties files from the Spring Boot App artifact can be injected in at runtime e.g. application-dev.properties for example to to manage the environment specific com.liferay.lxc.dxp. properties, with the following syntax:
 - Verify connectivity to the public /ready GET endpoint from the Liferay server e.g. using curl.
 - Add an 'On After Add' Object Action to An Object and select the following from the Action > Then dropdown and Save the Object Action:
   - object-action-executor[function#mw-object-action]
@@ -33,8 +34,9 @@
 
 ## Liferay PaaS Setup Steps ##
 - For each Liferay PaaS environment, generate the environment specific LUFFA file based on the environment specific client-extension.yaml and application.properties details from above and copy the resulting LUFFA to the appropriate liferay\configs\[ENV]\osgi\client-extensions folder.
-- Deploy the resulting Liferay PaaS build to a non prod environment.
-- Provision / start the Spring Boot App for the environment. It should be running outside of Liferay PaaS. Confirm it starts as expected.
+- Deploy the resulting Liferay PaaS build to a the appropriate environment.
+    - You can create a single build with the appropriate copy of the CX LUFFA file in liferay\configs\dev\osgi\client-extensions, liferay\configs\uat\osgi\client-extensions and liferay\configs\prod\osgi\client-extensions etc.
+- Provision / start the Spring Boot App with the environment specific configuration. Confirm it starts as expected.
 - Verify connectivity to the public /ready GET endpoint from the Liferay server e.g. using curl from the Liferay service shell.
 - Add an 'On After Add' Object Action to An Object and select the following from the Action > Then dropdown and Save the Object Action:
   - object-action-executor[function#mw-object-action]
