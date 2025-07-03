@@ -12,4 +12,4 @@ mw-spring-boot-oauth-app-user-agent:
     scopes:
         -   Liferay.Headless.Admin.User.everything
         -   Liferay.Headless.Admin.Workflow.everything
-    type: oAuthApplicationUserAgent    
+    type: oAuthApplicationUserAgent
