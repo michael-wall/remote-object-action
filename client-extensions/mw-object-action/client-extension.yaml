@@ -1,5 +1,3 @@
-assemble:
-    -   fromTask: bootJar
 mw-object-action:
     name: MW Object Action
     oAuth2ApplicationExternalReferenceCode: mw-spring-boot-oauth-app-user-agent
