@@ -5,7 +5,8 @@
     - The Spring Boot App is in a separate Liferay Workspace repository: https://github.com/michael-wall/remote-object-action-new-app
 - The expectation is that the Spring Boot App is deployed outside of Liferay PaaS and Docker.
 - For test purposes the setup assumes a local Liferay and local Spring Boot App, but the Spring Boot App can be remote as long as the hostnames are resolvable in both directions etc.
-- Customer is responsible for provisioning the Spring Boot App e.g. with a custom CI/CD pipeline and managing availability and scale etc.
+- ** Customer is responsible for provisioning the Spring Boot App e.g. with a custom CI/CD pipeline and managing availability and scale etc.**
+- ** Customer can update the code within the Object Action class without needing to do a Liferay PaaS build.**
 
 ## Self Hosted / Local Setup Steps ##
 - Update the following configuration:
