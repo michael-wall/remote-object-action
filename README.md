@@ -35,6 +35,7 @@
 - Create an Object Record and check the logs of the Spring Boot application, you should see a blob of JSON as well as the JWT Claims, JWT ID and JWT Subject in the Spring Boot App log output.
 
 ## Liferay PaaS Setup Steps ##
+- **These steps assume the BETA feature flag to enable the Jenkins CX CI/CD pipeline is not enabled for the Liferay PaaS Project.**
 - For each Liferay PaaS environment, generate the environment specific LUFFA file based on the environment specific client-extension.yaml and application.properties details from above and copy the resulting LUFFA to the appropriate liferay\configs\[ENV]\osgi\client-extensions folder.
 - Deploy the resulting Liferay PaaS build to a the appropriate environment.
     - You can create a single build with the appropriate copy of the CX LUFFA file in liferay\configs\dev\osgi\client-extensions, liferay\configs\uat\osgi\client-extensions and liferay\configs\prod\osgi\client-extensions etc.
