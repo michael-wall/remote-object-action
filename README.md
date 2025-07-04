@@ -56,6 +56,11 @@
 ```
 public ResponseEntity<String> post(@AuthenticationPrincipal Jwt jwt, @RequestBody String json)
 ```
+- As a result the Spring Boot App requires the Liferay DXP (defined in the **com.liferay.lxc.dxp...** properties) to be running when it is started, otherwise the following errors will occur:
+```
+- 2025-07-04T15:59:36.736+01:00  WARN 11592 --- [           main] c.l.c.e.u.s.b.client.LiferayOAuth2Util   : Unable to get client ID: Connection refused: getsockopt: localhost/127.0.0.1:8080
+2025-07-04T15:59:37.391+01:00  WARN 11592 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0: Error creating bean with name 'securityFilterChain' defined in class path resource [com/liferay/client/extension/util/spring/boot3/LiferayOAuth2ResourceServerEnableWebSecurity.class]: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'securityFilterChain' threw exception with message: Error creating bean with name 'jwtDecoder' defined in class path resource [com/liferay/client/extension/util/spring/boot3/LiferayOAuth2ResourceServerEnableWebSecurity.class]: Failed to instantiate [org.springframework.security.oauth2.jwt.JwtDecoder]: Factory method 'jwtDecoder' threw exception with message: Couldn't retrieve remote JWK set: Connection refused: getsockopt
+```
 
 ## OAuth2 Administration > MW Spring Boot OAuth App User Agent ##
 - The **.serviceAddress: mw.com:58081** and **.serviceScheme: http** values can be manually updated through the Liferay GUI > Control Panel > OAuth2 Administration > MW Spring Boot OAuth App User Agent.
