@@ -25,6 +25,7 @@
   - OAuth 2 application with external reference code mw-spring-boot-oauth-app-user-agent and company ID 40473633903803 has client ID ..............................
 -Build the Spring Boot App Jar with a regular gradle build command.
 - Spring Boot Jar (com.mw.object.action-1.0.0.jar): Copy the Spring Boot Jar from remote-object-action-new-app\remote-object-action-new-app\modules\mw-object-action\build\libs out of the workspace
+- Note the Liferay server must be running BEFORE the Spring Boot App is started, otherwise it won't start.
 - Run java -jar com.mw.object.action-1.0.0.jar to Start the Spring Boot App and confirm it starts as expected.
   - java -jar build\libs\mw-object-action.jar
   - Note that a pre-existing environment specific application.properties file the Spring Boot App artifact can be injected in during startup to manage the environment specific com.liferay.lxc.dxp... properties with the following syntax:
@@ -39,6 +40,7 @@
 - For each Liferay PaaS environment, generate the environment specific LUFFA file based on the environment specific client-extension.yaml and application.properties details from above and copy the resulting LUFFA to the appropriate liferay\configs\[ENV]\osgi\client-extensions folder.
 - Deploy the resulting Liferay PaaS build to a the appropriate environment.
     - You can create a single build with the appropriate copy of the CX LUFFA file in liferay\configs\dev\osgi\client-extensions, liferay\configs\uat\osgi\client-extensions and liferay\configs\prod\osgi\client-extensions etc.
+- Note the Liferay server must be running BEFORE the Spring Boot App is started, otherwise it won't start.
 - Provision / start the Spring Boot App with the environment specific configuration. Confirm it starts as expected.
 - Verify connectivity to the public /ready GET endpoint from the Liferay server e.g. using curl from the Liferay service shell.
 - Add an 'On After Add' Object Action to An Object and select the following from the Action > Then dropdown and Save the Object Action:
