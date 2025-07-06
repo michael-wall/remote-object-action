@@ -50,6 +50,7 @@
 ## Setup Notes ##
 - The Dockerfile and LCP.json files are mandatory for the Client Extension to compile but the included files are empty.
 - The ReadyRestController.java class is not needed if not running as a Liferay PaaS Custom Service, but I left it there for testing connectivity, as it is a public GET available at /ready
+    - When running as a Liferay PaaS Custom Service it is used by the probes defined in the custom service LCP.json.
 - If the OAuth CX name (i.e. mw-spring-boot-oauth-app-user-agent) is changed after the CX LUFFA zip has been deployed then you will need to also change the Object Action CX name (i.e. mw-object-action) and do build and deployment of the CX LUFFA, restart the new Spring Boot App and remap the action...
    - This is required because the mapping to the old OAuth CX name doesn't change even if you delete the Object Action and recreate it.
 - The Spring Boot App has some Liferay dependencies in particular BaseRestController.java from com.liferay.client.extension.util.spring.boot3. See the specific method signature of the POST method:
